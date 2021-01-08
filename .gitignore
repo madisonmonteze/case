@@ -1,0 +1,11 @@
+# Mac files
+.DS_Store
+
+# Dependency directory
+node_modules/
+
+# Sanity dist folder
+/studio/dist/
+
+# Environment variable files
+.env*
