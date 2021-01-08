@@ -1,89 +1,38 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import { useLocation } from '@reach/router'
+import { urlFor } from '../lib/image-url'
+import { buildImageObj } from '../lib/helpers'
 
-import React from "react"
-import PropTypes from "prop-types"
-import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+const SEO = ({ title, description, url, keywords, image }) => {
+  const { pathname } = useLocation()
 
-function SEO({ description, lang, meta, title }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-          }
-        }
-      }
-    `
-  )
-
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+  const siteTitle = title || ''
+  const siteDescription = description || ''
+  const siteUrl = `${url}${pathname}` || ''
+  const siteKeywords = keywords && keywords.length > 0 ? keywords.join(', ') : []
+  const metaImage =
+    image && image.asset ? urlFor(buildImageObj(image)).width(1200).height(630).url() : ''
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata?.author || ``,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
-    />
+    <Helmet>
+      <title>{siteTitle}</title>
+      <link rel="canonical" href={siteUrl} />
+      <meta name="description" content={siteDescription} />
+      {keywords && <meta name="keywords" content={siteKeywords} />}
+      {image && <meta name="image" content={metaImage} />}
+
+      <meta property="og:url" content={siteUrl} />
+      <meta property="og:title" content={siteTitle} />
+      <meta property="og:description" content={siteDescription} />
+      {image && <meta property="og:image" content={metaImage} />}
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={siteTitle} />
+      <meta name="twitter:description" content={siteDescription} />
+      {image && <meta name="twitter:image" content={metaImage} />}
+    </Helmet>
   )
-}
-
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  description: ``,
-}
-
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
 }
 
 export default SEO
