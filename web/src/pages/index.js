@@ -1,22 +1,123 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql } from 'gatsby'
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import useSite from '../hooks/use-site'
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+export const query = graphql`
+  {
+    sanityHome {
+      title
+      anchorLinkText
+      logo {
+        asset {
+          _id
+          url
+        }
+        alt
+      }
+    }
+    sanityWhatWeDo {
+      title
+      subtitle
+      text {
+        _key
+        _type
+        children {
+          _key
+          _type
+          marks
+          text
+        }
+      }
+      highlights {
+        highlight1 {
+          _key
+          children {
+            _key
+            _type
+            marks
+            text
+          }
+        }
+        highlight2 {
+          _key
+          children {
+            _key
+            _type
+            marks
+            text
+          }
+        }
+        highlight3 {
+          _key
+          children {
+            _key
+            _type
+            marks
+            text
+          }
+        }
+      }
+      impactsSubheading
+      impactsList {
+        _key
+        listTitle
+        listBodyCopy
+      }
+    }
+    sanityWhoAreWe {
+      title
+      sideImage {
+        alt
+        asset {
+          url
+        }
+      }
+      text {
+        children {
+          _key
+          _type
+          marks
+          text
+        }
+        _key
+        _type
+      }
+      membersSubheading
+      membersList
+    }
+    sanityGetInTouch {
+      title
+      body {
+        heading
+        paragraph
+        button {
+          text
+          url
+        }
+      }
+      socialHeading
+      socialSubheading
+      socialLinks {
+        text
+        url
+      }
+    }
+  }
+`
+
+const IndexPage = ({ data }) => {
+  const site = useSite()
+  console.log(site.title)
+
+  return (
+    <Layout>
+      <SEO title={site.title} description={site.description} />
+      <pre>{JSON.stringify(data, null, 4)}</pre>
+    </Layout>
+  )
+}
 
 export default IndexPage
