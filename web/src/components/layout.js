@@ -1,27 +1,29 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
 import styled from 'styled-components'
+import GlobalStyles from '../styles/globalStyles'
+import Typography from '../styles/typography'
+import Navigation from './navigation'
+
 
 const LayoutStyles = styled.div`
+  height: 100vh;
 
+  main {
+    margin-left: 150px;
+  }
 `;
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
-  return (
-    <>
-      <main>{children}</main>
-    </>
-  )
-}
+const Layout = ({ children, location }) => (
+  <>
+    <GlobalStyles />
+      <Typography />
+        <LayoutStyles className="h-full w-full flex">
+          <Navigation />
+            <main>
+              {children}
+            </main>
+        </LayoutStyles>
+  </>
+)
 
 export default Layout

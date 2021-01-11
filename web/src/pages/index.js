@@ -110,7 +110,6 @@ export const query = graphql`
 
 const IndexPage = ({ data }) => {
   const site = useSite()
-  console.log(site.title)
 
   return (
     <Layout>
