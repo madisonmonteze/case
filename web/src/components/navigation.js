@@ -21,8 +21,7 @@ const NavigationStyles = styled.div`
 
 const Navigation = () => {
   const navigation = useNavigation()
-  console.log(navigation)
-
+  
   return (
     <>
       <NavigationStyles className="h-full fixed top-0 flex flex-col items-center justify-between p-8">
