@@ -17,8 +17,16 @@ export default {
         type: 'blockText',
       },
       {
-        name: 'highlights',
-        type: 'highlights',
+        name: 'highlight1',
+        type: 'blockText',
+      },
+      {
+        name: 'highlight2',
+        type: 'blockText',
+      },
+      {
+        name: 'highlight3',
+        type: 'blockText',
       },
       {
         name: 'impactsSubheading',
