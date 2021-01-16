@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from 'styled-components'
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
@@ -10,6 +10,7 @@ const NavigationStyles = styled.div`
   .case-logo-w {
     svg {
       fill: var(--white);
+      z-index: 100;
     }
   }
   .hamburger-menu {
@@ -19,8 +20,28 @@ const NavigationStyles = styled.div`
   }
 `;
 
+const MenuStyles = styled.aside`
+  &.closed {
+    transform: translateY(-100%);
+  }
+
+  .menu-item {
+    background-color: var(--blue);
+    &:nth-child(2) {
+      background-color: var(--red);
+    }
+  }
+`;
+
 const Navigation = () => {
   const navigation = useNavigation()
+  console.log(navigation)
+
+  const [isActive, setActive] = useState(false);
+
+  const toggleClass = () => {
+    setActive(!isActive);
+  };
   
   return (
     <>
@@ -35,7 +56,7 @@ const Navigation = () => {
           </svg>
         </div>
         
-        <button className="hamburger-menu">
+        <button onClick={toggleClass} className="hamburger-menu focus:outline-none">
           <svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line y1="1.5" x2="28" y2="1.5" stroke-width="3"/>
             <line y1="13.5" x2="28" y2="13.5" stroke-width="3"/>
@@ -43,6 +64,20 @@ const Navigation = () => {
           </svg>
         </button>
       </NavigationStyles>
+
+      <MenuStyles className={`absolute w-full h-full flex flex-col lg:flex-row ${isActive ? "" : "closed"}`}>
+        <button onClick={toggleClass} className="absolute top-0 right-0 p-8 focus:outline-none">
+          <svg width="50" height="49" viewBox="0 0 50 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="48.8409" y1="1.06066" x2="2.06054" y2="47.8411" stroke="white" stroke-width="3"/>
+            <line x1="48.3739" y1="47.8409" x2="1.59351" y2="1.06054" stroke="white" stroke-width="3"/>
+          </svg>
+        </button>
+        {navigation.navLinks.map(item => (
+          <div className="menu-item w-full h-1/2 lg:h-full lg:w-1/2 text-5xl lg:text-6xl text-white flex justify-center items-center">
+            <a href={item.slug} >{item.text}</a>
+          </div>
+        ))}
+      </MenuStyles>
     </>
   )
 }

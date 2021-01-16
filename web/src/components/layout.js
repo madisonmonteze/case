@@ -17,7 +17,7 @@ const Layout = ({ children, location }) => (
   <>
     <GlobalStyles />
       <Typography />
-        <LayoutStyles className="h-full w-full flex">
+        <LayoutStyles className="h-full w-full flex font-reg">
           <Navigation />
             <main>
               {children}
