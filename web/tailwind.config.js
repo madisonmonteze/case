@@ -18,11 +18,17 @@ module.exports = {
           letterSpacing: '-0.045em',
           lineHeight: '44px'
         }],
+        "2xl-2": ["28px", {
+          lineHeight: '100%'
+        }],
         "3xl": ["48px", {
           lineHeight: '48px',
         }],
         "4xl": ["52px", {
           lineHeight: '52px',
+        }],
+        "4xl-2": ["56px", {
+          lineHeight: '56px',
         }],
         "5xl": ["60px", {
           lineHeight: '60px',
