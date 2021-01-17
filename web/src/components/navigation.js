@@ -1,31 +1,140 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from 'styled-components'
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import useNavigation from '../hooks/use-navigation'
 
 const NavigationStyles = styled.div`
-  width: 150px;
   background-color: var(--red);
-  .case-logo-w {
-    svg {
-      fill: var(--white);
+  height: 90px;
+
+  &.active {
+    .hamburger-menu {
+      svg {
+        opacity: 0;
+        transition: opacity .3s ease;
+      }
+      span {
+        &:nth-of-type(1) {
+          transform: rotate(45deg) translateY(15px);
+          @media (min-width: 1024px) {
+            transform: scale(0);
+          }
+        }
+        &:nth-of-type(2) {
+          transform: scale(0);
+          
+        }
+        &:nth-of-type(3) {
+          transform: rotate(-45deg) translateY(-15px);
+          @media (min-width: 1024px) {
+            transform: scale(0);
+          }
+        }
+      }
+    }
+
+  }
+
+  @media (min-width: 1024px) {
+    width: 150px;
+    height: 100%;
+    &.active {
+      .case-logo svg {
+        width: 65px;
+        height: 65px;
+      }
     }
   }
+
+  .case-logo {
+    svg {
+      fill: var(--white);
+      z-index: 100;
+      transition: all .5s ease;
+      width: 50px;
+      height: 50px;
+      @media (min-width: 1024px) {
+        width: 88px;
+        height: 88px;
+      }
+    }
+  }
+  
   .hamburger-menu {
+    span {
+      width: 28px;
+      height: 3px;
+      margin: 0 auto 8px;
+      background-color: var(--white);
+      display: block;
+      transform-origin: center;
+      transition: transform .4s cubic-bezier(0,0,.25,1),-webkit-transform .4s cubic-bezier(0,0,.25,1);
+    }
     svg {
       stroke: var(--white);
+      transition: opacity .3s ease;
+    }
+  }
+`;
+
+const MenuStyles = styled.aside`
+  transition: transform .8s cubic-bezier(0.77,0.2,0.05,1.0);
+  &.closed {
+    transform: translateX(-100%);
+    transition: transform .8s cubic-bezier(0.77,0.2,0.05,1.0);
+
+    .close-btn svg {
+      opacity: 0;
+    }
+  }
+
+  .menu-item {
+    background-color: var(--blue);
+    &:nth-child(2) {
+      background-color: var(--red);
+    }
+  }
+
+  .close-btn svg {
+    display: none;
+    transition: all .5s ease;
+    @media (min-width: 1024px) {
+      display: block;
+      width: 48px;
+      height: 48px;
     }
   }
 `;
 
 const Navigation = () => {
   const navigation = useNavigation()
+  console.log(navigation)
+
+  const [isActive, setActive] = useState(false);
+
+  const toggleClass = () => {
+    setActive(!isActive);
+  };
   
   return (
     <>
-      <NavigationStyles className="h-full fixed top-0 flex flex-col items-center justify-between p-8">
-        <div className="case-logo-w">
+      <MenuStyles className={`absolute w-full h-full flex flex-col lg:flex-row ${isActive ? "" : "closed"}`}>
+        <button onClick={toggleClass} className="close-btn absolute top-0 right-0 p-8 focus:outline-none z-50">
+          <svg width="50" height="49" viewBox="0 0 50 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="48.8409" y1="1.06066" x2="2.06054" y2="47.8411" stroke="white" stroke-width="3"/>
+            <line x1="48.3739" y1="47.8409" x2="1.59351" y2="1.06054" stroke="white" stroke-width="3"/>
+          </svg>
+        </button>
+        {navigation.navLinks.map(item => (
+          <div className="menu-item w-full h-1/2 lg:h-full lg:w-1/2 text-5xl lg:text-6xl text-white flex justify-center items-center">
+            <a href={item.slug} >{item.text}</a>
+          </div>
+        ))}
+      </MenuStyles>
+      
+      <NavigationStyles className={`h-auto w-full lg:w-auto lg:h-full fixed top-0 flex flex-row lg:flex-col items-center justify-between p-8 ${isActive ? "active" : ""}`}>
+        <div className="case-logo">
           <svg width="88" height="87" viewBox="0 0 88 87" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M61.9507 12.5273H62.2237L67.7364 26.5455H56.438L61.9507 12.5273ZM49.8335 43.4759L53.4408 34.2653H70.7336L74.4105 43.4759H85.436L68.1432 0.814453H56.6361L39.4824 43.4759H49.8335Z"/>
             <path d="M26.825 60.7898L18.7914 59.3683C15.6604 58.7613 13.755 57.8775 13.755 55.4391C13.755 52.5269 16.2063 50.7646 20.5629 50.7646C25.5351 50.7646 29.0033 53.203 29.2762 58.213L38.8084 57.9414C38.6532 50.6528 34.8692 45.5684 27.8419 43.6038C36.9138 41.4529 41.8645 34.3453 42.4853 25.4542L32.616 25.0496C32.0005 30.4694 28.8695 35.2078 21.7244 35.2078C14.8469 35.2078 10.6294 30.1287 10.6294 22.1373C10.6294 14.146 14.8522 9.06683 21.7244 9.06683C28.8695 9.06683 32.0058 13.8052 32.616 19.2251L42.4853 18.8205C41.7307 8.12447 34.7194 0 21.7832 0C9.39302 0 0 9.00826 0 22.1426C0 32.7321 6.10145 40.6277 14.9539 43.3004C7.87301 44.8816 3.60735 49.5721 3.60735 56.3229C3.60735 63.5689 8.44034 67.3596 15.2483 68.6481L23.2818 70.0696C27.0283 70.8149 29.5438 71.4911 29.5438 74.3341C29.5438 77.1772 26.6858 78.9394 22.1258 78.9394C16.8164 78.9394 12.3902 76.5702 11.9835 70.6765L2.52086 71.0173C2.52086 81.3778 10.6882 87 22.1258 87C31.9309 87 39.6219 82.4639 39.6219 73.658C39.6219 66.6835 35.6025 62.3497 26.825 60.7898Z" />
@@ -35,12 +144,16 @@ const Navigation = () => {
           </svg>
         </div>
         
-        <button className="hamburger-menu">
-          <svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <button onClick={toggleClass} className="hamburger-menu focus:outline-none">
+          <span></span>
+          <span></span>
+          <span></span>
+          
+          {/* <svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line y1="1.5" x2="28" y2="1.5" stroke-width="3"/>
             <line y1="13.5" x2="28" y2="13.5" stroke-width="3"/>
             <line y1="25.5" x2="28" y2="25.5" stroke-width="3"/>
-          </svg>
+          </svg> */}
         </button>
       </NavigationStyles>
     </>

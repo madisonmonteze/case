@@ -9,7 +9,12 @@ const LayoutStyles = styled.div`
   height: 100vh;
 
   main {
-    margin-left: 150px;
+    margin-top: 90px;
+    
+    @media (min-width: 1024px) {
+      margin-left: 150px;
+      margin-top: 0;
+    }
   }
 `;
 
@@ -17,7 +22,7 @@ const Layout = ({ children, location }) => (
   <>
     <GlobalStyles />
       <Typography />
-        <LayoutStyles className="h-full w-full flex">
+        <LayoutStyles className="h-full w-full flex flex-col lg:flex-row font-reg">
           <Navigation />
             <main>
               {children}
