@@ -18,13 +18,17 @@ const LayoutStyles = styled.div`
   }
 `;
 
+const handleScroll = () => {
+  console.log('scrolled')
+}
+
 const Layout = ({ children, location }) => (
   <>
     <GlobalStyles />
       <Typography />
         <LayoutStyles className="h-full w-full flex flex-col lg:flex-row font-reg">
           <Navigation />
-            <main>
+            <main className="p-6 lg:py-24 lg:px-12 lg:pl-24">
               {children}
             </main>
         </LayoutStyles>

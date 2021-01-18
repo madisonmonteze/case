@@ -13,7 +13,15 @@ export default {
         type: 'uploadImage',
       },
       {
-        name: 'text',
+        name: 'firstTextBlock',
+        type: 'blockText',
+      },
+      {
+        name: 'blockquote',
+        type: 'string',
+      },
+      {
+        name: 'secondTextBlock',
         type: 'blockText',
       },
       {

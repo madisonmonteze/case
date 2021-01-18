@@ -6,7 +6,9 @@ module.exports = {
       fontSize: {
         xs: "12px",
         sm: "15px",
-        base: "16px",
+        base: ["16px", {
+          lineHeight: '20px'
+        }],
         lg: "19px",
         "lg-2": ["21px", {
           lineHeight: '24.15px'
@@ -14,15 +16,23 @@ module.exports = {
         xl: ["24px", {
           lineHeight: '24px'
         }],
-        "2xl": ["27px", {
-          letterSpacing: '-0.045em',
-          lineHeight: '44px'
+        "2xl": ["32px", {
+          lineHeight: '32px'
+        }],
+        "2xl-2": ["28px", {
+          lineHeight: '100%'
         }],
         "3xl": ["48px", {
           lineHeight: '48px',
         }],
+        "3xl-2": ["42px", {
+          lineHeight: '42px',
+        }],
         "4xl": ["52px", {
           lineHeight: '52px',
+        }],
+        "4xl-2": ["56px", {
+          lineHeight: '56px',
         }],
         "5xl": ["60px", {
           lineHeight: '60px',
