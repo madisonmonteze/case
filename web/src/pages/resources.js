@@ -61,7 +61,7 @@ const ResourcePage = ({ data }) => {
       <ResourcesStyles className="w-full">
         <div className="py-8 lg:pb-16 lg:pt-0 lg:flex lg:flex-row justify-between">
           <h2 className="text-lg-2 font-semibold text-blue pb-6">{resourcesData.title}</h2>
-          <p className="lg:text-lg lg:w-1/2">{resourcesData.body}</p>
+          <p className="text-base lg:text-lg lg:w-1/2">{resourcesData.body}</p>
         </div>
 
         <div className="pb-8 lg:pb-16 lg:flex lg:flex-row justify-between">

@@ -16,6 +16,9 @@ module.exports = {
         xl: ["24px", {
           lineHeight: '24px'
         }],
+        "xl-2": ["38px", {
+          lineHeight: '45px'
+        }],
         "2xl": ["32px", {
           lineHeight: '32px'
         }],
