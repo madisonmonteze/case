@@ -18,6 +18,10 @@ const LayoutStyles = styled.div`
   }
 `;
 
+const handleScroll = () => {
+  console.log('scrolled')
+}
+
 const Layout = ({ children, location }) => (
   <>
     <GlobalStyles />

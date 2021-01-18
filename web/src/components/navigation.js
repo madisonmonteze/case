@@ -6,7 +6,6 @@ import useNavigation from '../hooks/use-navigation'
 import { useMatch } from '@reach/router';
 
 const NavigationStyles = styled.div`
-  /* background-color: var(--red); */
   height: 90px;
   transition: background-color .5s ease;
 
@@ -112,7 +111,6 @@ const MenuStyles = styled.aside`
 
 const Navigation = () => {
   const navigation = useNavigation()
-  console.log(navigation)
 
   const isIndex = useMatch('/')
   const isResources = useMatch('/resources')
@@ -125,8 +123,8 @@ const Navigation = () => {
   
   return (
     <>
-      <MenuStyles className={`absolute w-full h-full flex flex-col lg:flex-row ${isActive ? "" : "closed"}`}>
-        <button onClick={toggleClass} className="close-btn absolute top-0 right-0 p-8 focus:outline-none z-50">
+      <MenuStyles className={`fixed w-full h-full flex flex-col lg:flex-row ${isActive ? "" : "closed"}`}>
+        <button onClick={toggleClass} className="close-btn fixed top-0 right-0 p-8 focus:outline-none z-50">
           <svg width="50" height="49" viewBox="0 0 50 49" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="48.8409" y1="1.06066" x2="2.06054" y2="47.8411" stroke="white" stroke-width="3"/>
             <line x1="48.3739" y1="47.8409" x2="1.59351" y2="1.06054" stroke="white" stroke-width="3"/>
