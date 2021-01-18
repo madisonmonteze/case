@@ -84,7 +84,11 @@ const WhoSectionStyles = styled.div`
 `;
 
 const ContactSectionStyles = styled.div`
-
+  .social-item {
+    svg {
+      width: 10px;
+    }
+  }
 `;
 
 export const query = graphql`
@@ -151,12 +155,16 @@ export const query = graphql`
         _type
       }
       membersSubheading
-      membersList
+      membersList {
+        text
+        url
+      }
     }
     sanityGetInTouch {
       title
       body {
         heading
+        subheading
         paragraph
         button {
           text
@@ -261,7 +269,7 @@ const IndexPage = ({ data }) => {
               <h3 className="text-lg-2 font-semibold text-yellow pb-4">{whoData.membersSubheading}</h3>
               <div className="flex flex-row flex-wrap">
                 {whoData.membersList.map(item => (
-                  <p className="member-item font-semibold w-1/2 pl-4 pb-4">{item}</p>
+                  <a href={item.url} className="member-item font-semibold w-1/2 pl-4 pb-4">{item.text}</a>
                 ))}
               </div>
             </div>
@@ -269,22 +277,32 @@ const IndexPage = ({ data }) => {
           </div>
         </WhoSectionStyles>
 
-        <ContactSectionStyles>
+        <ContactSectionStyles className="py-12">
           <div>
-            <h1>{contactData.title}</h1>
+            <h1 className="text-3xl-2 text-blue pb-4">{contactData.title}</h1>
           </div>
           <div>
-            <h3>{contactData.body.heading}</h3>
-            <p>{contactData.body.paragraph}</p>
-            <a href={contactData.body.button.url} target="_blank">
+            <div className="pb-4 flex flex-col lg:flex-row">
+              <h3 className="text-base font-semibold text-blue">{contactData.body.heading}</h3>
+              <h3 className="text-base font-reg text-blue">{contactData.body.subheading}</h3>
+            </div>
+            
+            <p className="pb-12">{contactData.body.paragraph}</p>
+
+            <a className="text-lg-2 text-white bg-darkBlue rounded-xl p-6" href={contactData.body.button.url} target="_blank">
               {contactData.body.button.text}
             </a>
 
-            <h3>{contactData.socialHeading}</h3>
-            <p>{contactData.socialSubheading}</p>
+            <h3 className="pt-20 text-base font-semibold text-blue">{contactData.socialHeading}</h3>
+            <p className="py-2">{contactData.socialSubheading}</p>
             {contactData.socialLinks.map(item => (
-              <div>
-                <a href={item.url} >{item.text}</a>
+              <div className="social-item inline-flex items-center mr-6">
+                <a className="font-semibold pr-2" href={item.url} >{item.text}</a>
+                <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 2H13V14" stroke="black" stroke-width="2"/>
+                  <path d="M1 14.0313L13 2.0312" stroke="black" stroke-width="2"/>
+                </svg>
+
               </div>
             ))}
           </div>
