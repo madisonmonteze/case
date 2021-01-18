@@ -31,7 +31,7 @@ export default {
       {
         name: 'membersList',
         type: 'array',
-        of: [{ type: 'string' }]
+        of: [{ type: 'externalLink' }]
       },
     ],
     preview: {

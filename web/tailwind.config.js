@@ -16,6 +16,9 @@ module.exports = {
         xl: ["24px", {
           lineHeight: '24px'
         }],
+        "xl-2": ["38px", {
+          lineHeight: '45px'
+        }],
         "2xl": ["32px", {
           lineHeight: '32px'
         }],
@@ -47,6 +50,7 @@ module.exports = {
         green: '#054706',
         brightGreen: '#009E02',
         blue: '#0035E1',
+        darkBlue: '#05299F',
         red: '#CE0924',
         yellow: '#FDBE2C',
       },

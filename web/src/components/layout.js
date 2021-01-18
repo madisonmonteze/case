@@ -7,9 +7,9 @@ import Navigation from './navigation'
 
 const LayoutStyles = styled.div`
   height: 100vh;
-
   main {
     margin-top: 90px;
+    max-width: 1440px;
     
     @media (min-width: 1024px) {
       margin-left: 150px;

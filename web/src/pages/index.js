@@ -13,6 +13,11 @@ const HomepageStyles = styled.div`
   p {
     font-size: 16px;
     line-height: 20px;
+
+    @media (min-width: 1024px) {
+      font-size: 19px;
+      line-height: 25px;
+    }
   }
 `;
 
@@ -84,7 +89,11 @@ const WhoSectionStyles = styled.div`
 `;
 
 const ContactSectionStyles = styled.div`
-
+  .social-item {
+    svg {
+      width: 10px;
+    }
+  }
 `;
 
 export const query = graphql`
@@ -151,12 +160,16 @@ export const query = graphql`
         _type
       }
       membersSubheading
-      membersList
+      membersList {
+        text
+        url
+      }
     }
     sanityGetInTouch {
       title
       body {
         heading
+        subheading
         paragraph
         button {
           text
@@ -209,19 +222,20 @@ const IndexPage = ({ data }) => {
         </LandingSectionStyles>
 
         <WhatSectionStyles className="py-12">
-          <div className="pb-12">
-            <h1 className="text-3xl-2 text-green pb-4">{whatData.title}</h1>
-            <BlockContent blocks={whatData.text} />  
+          <div className="pb-12 flex flex-col lg:flex-row justify-between w-full">
+            <h1 className="text-3xl-2 lg:text-4xl text-green pb-4 w-full lg:w-1/3">{whatData.title}</h1>
+            <div className="w-full lg:w-1/2">
+              <BlockContent blocks={whatData.text} /> 
+            </div>
           </div>
 
-          <div>
-            <h3 className="text-lg-2 font-semibold text-green pb-4">{whatData.subtitle}</h3>
-            
-            <div>
+          <div className="flex flex-col lg:flex-row justify-between w-full">
+            <h3 className="text-lg-2 font-semibold text-green pb-4 w-full lg:w-1/3">{whatData.subtitle}</h3>
+            <div className="w-full lg:w-1/2">
               <div className="pb-4">
                 {whatData.highlights.map(item => (
                   <div className="highlight-item p-4 mb-6">
-                    <p className="text-base">{item}</p>
+                    <p className="text-base lg:text-lg-2">{item}</p>
                   </div>
                 ))}
               </div>
@@ -231,7 +245,7 @@ const IndexPage = ({ data }) => {
 
               {whatData.impactsList.map(item => (
                 <div className="impacts-item pl-4 pb-4">
-                  <h4 className="inline-flex items-center font-semibold pb-2">
+                  <h4 className="text-base lg:text-lg-2 inline-flex items-center font-semibold pb-2">
                     {item.listTitle}
                   </h4>
                   <p>{item.listBodyCopy}</p>
@@ -242,54 +256,63 @@ const IndexPage = ({ data }) => {
         </WhatSectionStyles>
 
         <WhoSectionStyles className="py-12">
-          <div>
-            <h1 className="text-3xl-2 text-yellow pb-4">{whoData.title}</h1>
-            <div className="pb-8">
+          <div className="w-full flex flex-col lg:flex-row justify-between">
+            <h1 className="text-3xl-2 lg:text-4xl text-yellow pb-4 w-full lg:w-1/3">{whoData.title}</h1>
+            <div className="pb-8 w-full lg:w-1/2">
               <BlockContent blocks={whoData.firstTextBlock} />
             </div>
-            
           </div>
 
-          <div>
-            <img className="pb-8" src={whoData.sideImage.asset.url} alt={whoData.sideImage.alt} />
+          <div className="w-full flex flex-col lg:flex-row justify-between items-start">
+            <img className="pb-8 w-full lg:w-1/3 h-auto object-contain lg:-mt-20" src={whoData.sideImage.asset.url} alt={whoData.sideImage.alt} />
             
-            <h4 className="text-2xl text-yellow pb-8">{whoData.blockquote}</h4>
-            
-            <BlockContent blocks={whoData.secondTextBlock} />
-            
-            <div className="pt-8">
-              <h3 className="text-lg-2 font-semibold text-yellow pb-4">{whoData.membersSubheading}</h3>
-              <div className="flex flex-row flex-wrap">
-                {whoData.membersList.map(item => (
-                  <p className="member-item font-semibold w-1/2 pl-4 pb-4">{item}</p>
-                ))}
+            <div className="w-full lg:w-1/2">
+              <h4 className="text-2xl lg:text-xl-2 text-yellow pb-8">{whoData.blockquote}</h4>
+              
+              <BlockContent blocks={whoData.secondTextBlock} />
+              
+              <div className="pt-8">
+                <h3 className="text-lg-2 font-semibold text-yellow pb-4">{whoData.membersSubheading}</h3>
+                <div className="flex flex-row flex-wrap">
+                  {whoData.membersList.map(item => (
+                    <a href={item.url} className="member-item font-semibold w-1/2 pl-4 lg:pl-6 pb-4 text-base lg:text-lg">{item.text}</a>
+                  ))}
+                </div>
               </div>
             </div>
-
           </div>
         </WhoSectionStyles>
 
-        <ContactSectionStyles>
-          <div>
-            <h1>{contactData.title}</h1>
-          </div>
-          <div>
-            <h3>{contactData.body.heading}</h3>
-            <p>{contactData.body.paragraph}</p>
-            <a href={contactData.body.button.url} target="_blank">
-              {contactData.body.button.text}
-            </a>
-
-            <h3>{contactData.socialHeading}</h3>
-            <p>{contactData.socialSubheading}</p>
-            {contactData.socialLinks.map(item => (
-              <div>
-                <a href={item.url} >{item.text}</a>
+        <ContactSectionStyles className="py-12 lg:pb-24">
+          <div className="w-full flex flex-col lg:flex-row justify-between">
+            <h1 className="text-3xl-2 lg:text-4xl text-blue pb-4 w-full lg:w-1/3">{contactData.title}</h1>
+            <div className="w-full lg:w-1/2">
+              <div className="pb-4 flex flex-col lg:flex-row lg:items-center">
+                <h3 className="text-base lg:text-lg-2 font-semibold text-blue lg:mr-2">{contactData.body.heading}</h3>
+                <h3 className="text-base lg:text-lg font-reg text-blue">{contactData.body.subheading}</h3>
               </div>
-            ))}
+              
+              <p className="pb-12">{contactData.body.paragraph}</p>
+
+              <a className="text-lg-2 text-white bg-darkBlue rounded-xl p-6" href={contactData.body.button.url} target="_blank">
+                {contactData.body.button.text}
+              </a>
+
+              <h3 className="pt-20 text-base lg:text-lg-2 font-semibold text-blue">{contactData.socialHeading}</h3>
+              <p className="py-2">{contactData.socialSubheading}</p>
+              {contactData.socialLinks.map(item => (
+                <div className="social-item inline-flex items-center mr-6">
+                  <a className="font-semibold lg:text-lg-2 pr-2" href={item.url} >{item.text}</a>
+                  <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 2H13V14" stroke="black" stroke-width="2"/>
+                    <path d="M1 14.0313L13 2.0312" stroke="black" stroke-width="2"/>
+                  </svg>
+
+                </div>
+              ))}
+            </div>
           </div>
         </ContactSectionStyles>
-
       </HomepageStyles>
     </Layout>
   )
