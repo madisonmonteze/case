@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import BlockContent from "@sanity/block-content-to-react"
@@ -202,6 +202,11 @@ const IndexPage = ({ data }) => {
 
   // contact section
   const contactData = data.sanityGetInTouch
+
+  // useEffect(() => {
+  //   document.addEventListener('scroll', _ => console.log('scrolled'))
+  // })
+
 
   return (
     <Layout>
