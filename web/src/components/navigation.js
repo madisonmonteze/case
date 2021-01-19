@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from 'styled-components'
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
@@ -112,14 +112,32 @@ const MenuStyles = styled.aside`
 const Navigation = () => {
   const navigation = useNavigation()
 
+  // active url
   const isIndex = useMatch('/')
   const isResources = useMatch('/resources')
 
+  // open and close nav
   const [isActive, setActive] = useState(false);
-
   const toggleClass = () => {
     setActive(!isActive);
   };
+
+  // scroll effects
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(!scrolled);
+      }
+    };
+    document.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrolled]);
   
   return (
     <>
@@ -137,7 +155,7 @@ const Navigation = () => {
         ))}
       </MenuStyles>
       
-      <NavigationStyles className={`h-auto w-full lg:w-auto lg:h-full fixed top-0 flex flex-row lg:flex-col items-center justify-between p-8 ${isActive ? "active" : ""} ${isResources ? "bg-blue" : "bg-red"}`}>
+      <NavigationStyles data-active={scrolled} className={`navbar h-auto w-full lg:w-auto lg:h-full fixed top-0 flex flex-row lg:flex-col items-center justify-between p-8 ${isActive ? "active" : ""} ${isResources ? "bg-blue" : "bg-red"}`}>
         <div className="case-logo">
           <svg width="88" height="87" viewBox="0 0 88 87" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M61.9507 12.5273H62.2237L67.7364 26.5455H56.438L61.9507 12.5273ZM49.8335 43.4759L53.4408 34.2653H70.7336L74.4105 43.4759H85.436L68.1432 0.814453H56.6361L39.4824 43.4759H49.8335Z"/>

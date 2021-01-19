@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from 'styled-components'
 import GlobalStyles from '../styles/globalStyles'
 import Typography from '../styles/typography'
@@ -18,11 +18,16 @@ const LayoutStyles = styled.div`
   }
 `;
 
-const handleScroll = () => {
-  console.log('scrolled')
-}
+// const handleScroll = ({ deltaY }) => {
+//   if (deltaY > 0) {
+    
+//   }
+// }
+
+
 
 const Layout = ({ children, location }) => (
+  
   <>
     <GlobalStyles />
       <Typography />
