@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react"
 import styled from 'styled-components'
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
@@ -8,6 +8,15 @@ import { useMatch } from '@reach/router';
 const NavigationStyles = styled.div`
   height: 90px;
   transition: background-color .5s ease;
+
+  &[data-active='true'] {
+    transition: all .5s ease;
+    height: 72px;
+    .case-logo,
+    .hamburger-menu {
+      opacity: 0;
+    }
+  }
 
   &.active {
     background-color: var(--red);
@@ -123,11 +132,13 @@ const Navigation = () => {
   };
 
   // scroll effects
+  // TESTING
+
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
+      const isScrolled = window.scrollY > 5;
       if (isScrolled !== scrolled) {
         setScrolled(!scrolled);
       }
@@ -139,6 +150,9 @@ const Navigation = () => {
     };
   }, [scrolled]);
   
+
+  // end scroll effects 
+
   return (
     <>
       <MenuStyles className={`fixed w-full h-full flex flex-col lg:flex-row ${isActive ? "" : "closed"}`}>
