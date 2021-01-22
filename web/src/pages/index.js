@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import BlockContent from "@sanity/block-content-to-react"
-
+import { InView } from 'react-intersection-observer';
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import useSite from '../hooks/use-site'
@@ -188,7 +188,6 @@ export const query = graphql`
 
 const IndexPage = ({ data }) => {
   const site = useSite()
-  console.log(data)
 
   // main section
   const homeData = data.sanityHome
@@ -203,16 +202,12 @@ const IndexPage = ({ data }) => {
   // contact section
   const contactData = data.sanityGetInTouch
 
-  // useEffect(() => {
-  //   document.addEventListener('scroll', _ => console.log('scrolled'))
-  // })
-
-
   return (
     <Layout>
       <SEO title={site.title} description={site.description} />
       <HomepageStyles>
-        <LandingSectionStyles className="pb-12 lg:flex lg:flex-col lg:justify-between">
+      <InView as="div" onChange={(inView) => inView}>
+        <LandingSectionStyles id="landingSection" className="pb-12 lg:flex lg:flex-col lg:justify-between">
           <img className="w-3/4 pb-24 pt-8 lg:p-0" src={homeLogo.asset.url} alt={homeLogo.alt} />
           <div>
             <h2 className="text-2xl lg:text-3xl pb-4 lg:pb-16 lg:w-3/4">{homeData.title}</h2>
@@ -223,10 +218,12 @@ const IndexPage = ({ data }) => {
               {homeData.anchorLinkText}
             </p>
           </div>
-
+        
         </LandingSectionStyles>
+      </InView>
 
-        <WhatSectionStyles className="py-12">
+      <InView as="div" onChange={(inView) => console.log('What Section Inview:', inView)}>
+        <WhatSectionStyles id="whatSection" className="py-12">
           <div className="pb-12 flex flex-col lg:flex-row justify-between w-full">
             <h1 className="text-3xl-2 lg:text-4xl text-green pb-4 w-full lg:w-1/3">{whatData.title}</h1>
             <div className="w-full lg:w-1/2">
@@ -259,8 +256,10 @@ const IndexPage = ({ data }) => {
             </div>
           </div>
         </WhatSectionStyles>
-
-        <WhoSectionStyles className="py-12">
+      </InView>
+      
+      <InView as="div" onChange={(inView) => console.log('Who Section Inview:', inView)}>
+        <WhoSectionStyles id="whoSection" className="py-12">
           <div className="w-full flex flex-col lg:flex-row justify-between">
             <h1 className="text-3xl-2 lg:text-4xl text-yellow pb-4 w-full lg:w-1/3">{whoData.title}</h1>
             <div className="pb-8 w-full lg:w-1/2">
@@ -287,8 +286,10 @@ const IndexPage = ({ data }) => {
             </div>
           </div>
         </WhoSectionStyles>
+      </InView>
 
-        <ContactSectionStyles className="py-12 lg:pb-24">
+      <InView as="div" onChange={(inView) => console.log('Contact Section Inview:', inView)}>
+        <ContactSectionStyles id="contactSection" className="py-12 lg:pb-24">
           <div className="w-full flex flex-col lg:flex-row justify-between">
             <h1 className="text-3xl-2 lg:text-4xl text-blue pb-4 w-full lg:w-1/3">{contactData.title}</h1>
             <div className="w-full lg:w-1/2">
@@ -318,6 +319,7 @@ const IndexPage = ({ data }) => {
             </div>
           </div>
         </ContactSectionStyles>
+      </InView>
       </HomepageStyles>
     </Layout>
   )

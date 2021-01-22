@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react"
+import React, { useState } from "react"
 import styled from 'styled-components'
 import { Link } from "gatsby"
-import PropTypes from "prop-types"
 import useNavigation from '../hooks/use-navigation'
 import { useMatch } from '@reach/router';
 
@@ -15,6 +14,13 @@ const NavigationStyles = styled.div`
     .case-logo,
     .hamburger-menu {
       opacity: 0;
+    }
+    @media (min-width: 1024px) {
+      height: 100%;
+      .case-logo,
+      .hamburger-menu {
+        opacity: 1;
+      }
     }
   }
 
@@ -132,24 +138,33 @@ const Navigation = () => {
   };
 
   // scroll effects
-  // TESTING
-
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 5;
-      if (isScrolled !== scrolled) {
-        setScrolled(!scrolled);
-      }
-    };
-    document.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      document.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrolled]);
   
+  // TESTING
+  
+  // const [scrollTop, setScrollTop] = useState(0);
+  // const [greenNav, setGreenNav] = useState(false);
+
+  // const onScroll = () => {
+  //   const winScroll = document.documentElement.scrollTop;
+  //   const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+  //   const scrolled = (winScroll / height) * 100;
+  //   setScrollTop(scrolled)
+
+  //   if (scrolled > 15) {
+  //     setGreenNav(!greenNav)
+  //   } else {
+  //     setGreenNav(false)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   document.addEventListener('scroll', onScroll);
+
+  //   return () => {
+  //     document.removeEventListener('scroll', onScroll);
+  //   };
+  // }, []);
 
   // end scroll effects 
 
@@ -169,7 +184,7 @@ const Navigation = () => {
         ))}
       </MenuStyles>
       
-      <NavigationStyles data-active={scrolled} className={`navbar h-auto w-full lg:w-auto lg:h-full fixed top-0 flex flex-row lg:flex-col items-center justify-between p-8 ${isActive ? "active" : ""} ${isResources ? "bg-blue" : "bg-red"}`}>
+      <NavigationStyles id="nav" className={`navbar h-auto w-full lg:w-auto lg:h-full fixed top-0 flex flex-row lg:flex-col items-center justify-between p-8 ${isActive ? "active" : ""} ${isResources ? "bg-blue" : "bg-red"}`}>
         <div className="case-logo">
           <svg width="88" height="87" viewBox="0 0 88 87" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M61.9507 12.5273H62.2237L67.7364 26.5455H56.438L61.9507 12.5273ZM49.8335 43.4759L53.4408 34.2653H70.7336L74.4105 43.4759H85.436L68.1432 0.814453H56.6361L39.4824 43.4759H49.8335Z"/>
