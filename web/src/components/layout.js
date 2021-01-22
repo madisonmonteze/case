@@ -1,8 +1,9 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import styled from 'styled-components'
 import GlobalStyles from '../styles/globalStyles'
 import Typography from '../styles/typography'
 import Navigation from './navigation'
+// import useIntersect from '../hooks/use-intersect'
 
 
 const LayoutStyles = styled.div`
@@ -18,16 +19,7 @@ const LayoutStyles = styled.div`
   }
 `;
 
-// const handleScroll = ({ deltaY }) => {
-//   if (deltaY > 0) {
-    
-//   }
-// }
-
-
-
-const Layout = ({ children, location }) => (
-  
+const Layout = ({ children }) => (
   <>
     <GlobalStyles />
       <Typography />
