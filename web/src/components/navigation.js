@@ -9,7 +9,7 @@ const NavigationStyles = styled.div`
   transition: background-color .5s ease;
 
   &.active {
-    background-color: var(--red);
+    background-color: var(--red) !important;
     .hamburger-menu {
       svg {
         opacity: 0;
