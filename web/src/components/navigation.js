@@ -8,22 +8,6 @@ const NavigationStyles = styled.div`
   height: 90px;
   transition: background-color .5s ease;
 
-  &[data-active='true'] {
-    transition: all .5s ease;
-    height: 72px;
-    .case-logo,
-    .hamburger-menu {
-      opacity: 0;
-    }
-    @media (min-width: 1024px) {
-      height: 100%;
-      .case-logo,
-      .hamburger-menu {
-        opacity: 1;
-      }
-    }
-  }
-
   &.active {
     background-color: var(--red);
     .hamburger-menu {
@@ -124,6 +108,7 @@ const MenuStyles = styled.aside`
   }
 `;
 
+
 const Navigation = () => {
   const navigation = useNavigation()
 
@@ -136,37 +121,6 @@ const Navigation = () => {
   const toggleClass = () => {
     setActive(!isActive);
   };
-
-  // scroll effects
-  
-  // TESTING
-  
-  // const [scrollTop, setScrollTop] = useState(0);
-  // const [greenNav, setGreenNav] = useState(false);
-
-  // const onScroll = () => {
-  //   const winScroll = document.documentElement.scrollTop;
-  //   const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-
-  //   const scrolled = (winScroll / height) * 100;
-  //   setScrollTop(scrolled)
-
-  //   if (scrolled > 15) {
-  //     setGreenNav(!greenNav)
-  //   } else {
-  //     setGreenNav(false)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   document.addEventListener('scroll', onScroll);
-
-  //   return () => {
-  //     document.removeEventListener('scroll', onScroll);
-  //   };
-  // }, []);
-
-  // end scroll effects 
 
   return (
     <>

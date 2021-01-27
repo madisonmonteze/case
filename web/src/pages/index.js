@@ -1,12 +1,11 @@
-import React, { useState } from "react"
+import React from "react"
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import BlockContent from "@sanity/block-content-to-react"
-import { InView } from 'react-intersection-observer';
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Scroller from '../components/scrolling'
 import useSite from '../hooks/use-site'
-
 import RightArrow from '../assets/images/right-arrow.svg'
 
 const HomepageStyles = styled.div`
@@ -186,7 +185,7 @@ export const query = graphql`
   }
 `
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, color }) => {
   const site = useSite()
 
   // main section
@@ -205,8 +204,8 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title={site.title} description={site.description} />
-      <HomepageStyles>
-      <InView as="div" onChange={(inView) => inView}>
+      <HomepageStyles >
+        <Scroller color="#CE0924" />
         <LandingSectionStyles id="landingSection" className="pb-12 lg:flex lg:flex-col lg:justify-between">
           <img className="w-3/4 pb-24 pt-8 lg:p-0" src={homeLogo.asset.url} alt={homeLogo.alt} />
           <div>
@@ -218,11 +217,8 @@ const IndexPage = ({ data }) => {
               {homeData.anchorLinkText}
             </p>
           </div>
-        
         </LandingSectionStyles>
-      </InView>
 
-      <InView as="div" onChange={(inView) => console.log('What Section Inview:', inView)}>
         <WhatSectionStyles id="whatSection" className="py-12">
           <div className="pb-12 flex flex-col lg:flex-row justify-between w-full">
             <h1 className="text-3xl-2 lg:text-4xl text-green pb-4 w-full lg:w-1/3">{whatData.title}</h1>
@@ -230,6 +226,8 @@ const IndexPage = ({ data }) => {
               <BlockContent blocks={whatData.text} /> 
             </div>
           </div>
+
+          <Scroller color="#054706" />
 
           <div className="flex flex-col lg:flex-row justify-between w-full">
             <h3 className="text-lg-2 font-semibold text-green pb-4 w-full lg:w-1/3">{whatData.subtitle}</h3>
@@ -256,16 +254,16 @@ const IndexPage = ({ data }) => {
             </div>
           </div>
         </WhatSectionStyles>
-      </InView>
-      
-      <InView as="div" onChange={(inView) => console.log('Who Section Inview:', inView)}>
+
         <WhoSectionStyles id="whoSection" className="py-12">
           <div className="w-full flex flex-col lg:flex-row justify-between">
             <h1 className="text-3xl-2 lg:text-4xl text-yellow pb-4 w-full lg:w-1/3">{whoData.title}</h1>
+            <Scroller color="#FDBE2C" />
             <div className="pb-8 w-full lg:w-1/2">
               <BlockContent blocks={whoData.firstTextBlock} />
             </div>
           </div>
+
 
           <div className="w-full flex flex-col lg:flex-row justify-between items-start">
             <img className="pb-8 w-full lg:w-1/3 h-auto object-contain lg:-mt-20" src={whoData.sideImage.asset.url} alt={whoData.sideImage.alt} />
@@ -286,9 +284,8 @@ const IndexPage = ({ data }) => {
             </div>
           </div>
         </WhoSectionStyles>
-      </InView>
-
-      <InView as="div" onChange={(inView) => console.log('Contact Section Inview:', inView)}>
+        
+        <Scroller color="#0035E1" />
         <ContactSectionStyles id="contactSection" className="py-12 lg:pb-24">
           <div className="w-full flex flex-col lg:flex-row justify-between">
             <h1 className="text-3xl-2 lg:text-4xl text-blue pb-4 w-full lg:w-1/3">{contactData.title}</h1>
@@ -319,7 +316,6 @@ const IndexPage = ({ data }) => {
             </div>
           </div>
         </ContactSectionStyles>
-      </InView>
       </HomepageStyles>
     </Layout>
   )

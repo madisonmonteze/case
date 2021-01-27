@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from 'styled-components'
 import GlobalStyles from '../styles/globalStyles'
 import Typography from '../styles/typography'
 import Navigation from './navigation'
-// import useIntersect from '../hooks/use-intersect'
 
 
 const LayoutStyles = styled.div`
@@ -19,12 +18,13 @@ const LayoutStyles = styled.div`
   }
 `;
 
+
 const Layout = ({ children }) => (
   <>
     <GlobalStyles />
       <Typography />
+      <Navigation />
         <LayoutStyles className="h-full w-full flex flex-col lg:flex-row font-reg">
-          <Navigation />
             <main className="p-6 lg:py-24 lg:px-12 lg:pl-24">
               {children}
             </main>
