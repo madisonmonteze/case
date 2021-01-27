@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useCallback } from "react";
-import ReactDOM from "react-dom";
 import { useInView } from "react-intersection-observer";
 import { motion, useAnimation } from "framer-motion";
 
