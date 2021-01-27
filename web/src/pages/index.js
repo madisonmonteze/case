@@ -185,7 +185,7 @@ export const query = graphql`
   }
 `
 
-const IndexPage = ({ data, color }) => {
+const IndexPage = ({ data }) => {
   const site = useSite()
 
   // main section
