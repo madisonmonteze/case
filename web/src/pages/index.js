@@ -275,9 +275,9 @@ const IndexPage = ({ data }) => {
               
               <div className="pt-8">
                 <h3 className="text-lg-2 font-semibold text-yellow pb-4">{whoData.membersSubheading}</h3>
-                <div className="flex flex-row flex-wrap">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   {whoData.membersList.map(item => (
-                    <a href={item.url} className="member-item font-semibold w-1/2 pl-4 lg:pl-6 pb-4 text-base lg:text-lg">{item.text}</a>
+                    <a href={item.url} className="member-item font-semibold pl-4 text-base lg:text-lg">{item.text}</a>
                   ))}
                 </div>
               </div>
