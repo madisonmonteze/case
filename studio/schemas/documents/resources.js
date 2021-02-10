@@ -2,7 +2,7 @@ export default {
     title: 'Resources',
     name: 'resources',
     type: 'document',
-    __experimental_actions: ['update', 'create', /* 'delete', */ 'publish'],
+    __experimental_actions: ['update', /* 'create', 'delete', */ 'publish'],
     fields: [
       {
         name: 'title',
