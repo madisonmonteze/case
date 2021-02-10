@@ -2,7 +2,7 @@ export default {
     title: 'Who Are We',
     name: 'whoAreWe',
     type: 'document',
-    __experimental_actions: ['update', 'create', /* 'delete', */ 'publish'],
+    __experimental_actions: ['update', /*  'create','delete', */ 'publish'],
     fields: [
       {
         name: 'title',

@@ -98,15 +98,9 @@ const ContactSectionStyles = styled.div`
 export const query = graphql`
   {
     sanityHome {
+      siteName
       title
       anchorLinkText
-      logo {
-        asset {
-          _id
-          url
-        }
-        alt
-      }
     }
     sanityWhatWeDo {
       title
@@ -190,7 +184,7 @@ const IndexPage = ({ data }) => {
 
   // main section
   const homeData = data.sanityHome
-  const homeLogo = homeData.logo
+
 
   // what section
   const whatData = data.sanityWhatWeDo
@@ -207,7 +201,7 @@ const IndexPage = ({ data }) => {
       <HomepageStyles >
         <Scroller color="#CE0924" />
         <LandingSectionStyles id="landingSection" className="pb-12 lg:flex lg:flex-col lg:justify-between">
-          <img className="w-3/4 pb-24 pt-8 lg:p-0" src={homeLogo.asset.url} alt={homeLogo.alt} />
+          <h1 className="text-3xl-2 lg:text-4xl font-semibold text-red pb-4 w-full lg:w-1/3">{homeData.siteName}</h1>
           <div>
             <h2 className="text-2xl lg:text-3xl pb-4 lg:pb-16 lg:w-3/4">{homeData.title}</h2>
             <p className="inline-flex items-center text-base lg:text-lg-2">
